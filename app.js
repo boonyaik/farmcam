@@ -44,7 +44,7 @@ let baseScale = 1, zoom = 1, pan = [0,0], offset = [0,0], scale = 1;
 let measurements = [];       // {p1Rect:[x,y], p2Rect:[x,y], value, units, color, textOffset:[dx,dy]}
 let clickPtsRect = [];
 const colors = [
-  "#c3ca04ff", "#00ffffff", "#d400ffff", "#32cd32", "#11e15aff",
+  "#0415caff", "#00ffffff", "#d400ffff", "#32cd32", "#11e15aff",
 
   // brights across the hue wheel
   "#ef4444", // red
@@ -124,7 +124,7 @@ function drawOverlays() {
 
     // draw subtle selection marker (optional)
     if (i === selectedLabelIndex) {
-      ctx.strokeStyle = '#7760faff';
+      ctx.strokeStyle = '#60fa60ff';
       ctx.setLineDash([4,3]);
       ctx.strokeRect(tx-6, ty-16, ctx.measureText(`${m.value.toFixed(2)} ${m.units}`).width+12, 22);
       ctx.setLineDash([]);
@@ -132,7 +132,7 @@ function drawOverlays() {
   }
   if (clickPtsRect.length % 2 === 1) {
     const last = rectToCanvas(clickPtsRect[clickPtsRect.length-1]);
-    ctx.fillStyle = '#00ff3cff';
+    ctx.fillStyle = '#37ff00ff';
     ctx.beginPath(); ctx.arc(last[0], last[1], 3, 0, Math.PI*2); ctx.fill();
   }
   ctx.restore();
