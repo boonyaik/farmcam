@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Farmcam Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --pad: 8px; --bg:#1f2937; --fg:#e5e7eb; --accent:#60a5fa; }
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:var(--fg);}
+    header { padding: var(--pad); font-weight:600; }
+    .row { display:grid; grid-template-columns: 1fr; gap:var(--pad); padding:var(--pad);}
+    .controls { display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap:var(--pad); align-items:center;}
+    button, input { padding:6px 10px; border-radius:8px; border:1px solid #374151; background:#111827; color:var(--fg); font-size:14px;}
+    button:hover { border-color:#4b5563; }
+    button:disabled { opacity:0.5; cursor:not-allowed; }
+    #stageWrap { position:relative; width:100%; height:70vh; background:#111827; border-top:1px solid #374151; border-bottom:1px solid #374151; }
+    #stage { position:absolute; inset:0; }
+    #status { padding: 0 var(--pad) var(--pad) var(--pad); opacity:.9; font-size:14px;}
+    .muted { opacity:.7; }
+    .badge { background:#60a5fa;color:#111827;border-radius:9999px;padding:2px 8px; }
+  </style>
+</head>
+<body>
+  <header>Farmcam <span class="badge">Web Edition</span></header>
+
+  <div class="row">
+    <div id="stageWrap"><canvas id="stage"></canvas></div>
+
+    <div class="controls">
+      <button id="btnLoad">Load Image</button>
+      <button id="btnReset" disabled>Reset Points</button>
+      <button id="btnClear" disabled>Clear Measurements</button>
+      <button id="btnDelete" disabled>Delete Selected</button>
+      <button id="btnSave" disabled>Save Annotated</button>
+
+      <label style="grid-column: span 2; display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="chkAuto" checked /> Auto px/cm
+      </label>
+
+      <label style="justify-self:end;">px/cm:</label>
+      <input id="ppc" type="number" step="0.001" value="20" disabled />
+
+      <label style="justify-self:end;">Label nudge(px):</label>
+      <input id="nudgestep" type="number" step="1" value="5" />
+
+      <div style="grid-column: 1 / -1;" class="muted">
+        Wheel = zoom, Middle-drag or Space+Left = pan, Right-click label to select, Arrow keys = nudge, <kbd>Delete</kbd>/<kbd>Backspace</kbd> = delete selected, + / − / 0 = zoom controls.
+      </div>
+    </div>
+
+    <div id="status" class="muted">Loading libraries…</div>
+  </div>
+
+  <!-- Your working detector scripts (must come BEFORE app.js) -->
+  <script src="https://cdn.jsdelivr.net/gh/damianofalcioni/js-aruco2/src/cv.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/damianofalcioni/js-aruco2/src/aruco.js"></script>
+
+  <!-- Your OpenCV.js (no aruco module needed) -->
+  <script src="opencv.js"></script>
+
+  <!-- App code -->
+  <script src="app.js"></script>
+</body>
+</html>
