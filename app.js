@@ -207,7 +207,7 @@ function detectBestArucoCorners_jsAruco2(imageData) {
   const markers = detector.detect(imageData);
 
   // Keep only ids in [0..49] to match DICT_5X5_50
-  const filtered = (markers || []).filter(m => Number.isInteger(m.id) && m.id >= 0 && m.id < 50);
+  const filtered = (markers || []).filter(m => Number.isInteger(m.id) && m.id >= 0 && m.id < 100);
   if (filtered.length === 0) return null;
 
   // Pick the largest by area
